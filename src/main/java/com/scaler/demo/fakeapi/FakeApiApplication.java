@@ -12,9 +12,9 @@ public class FakeApiApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(FakeApiApplication.class, args);
-		String[] beanNames = context.getBeanDefinitionNames();
-		for (String bean: beanNames)
-            LOGGER.info("Bean: {}", bean);
+//		String[] beanNames = context.getBeanDefinitionNames();
+//		for (String bean: beanNames)
+//            LOGGER.info("Bean: {}", bean);
 	}
 
 }

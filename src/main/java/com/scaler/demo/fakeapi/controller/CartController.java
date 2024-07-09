@@ -1,9 +1,8 @@
 package com.scaler.demo.fakeapi.controller;
 
 import com.scaler.demo.fakeapi.dto.CartDTO;
-import com.scaler.demo.fakeapi.exception.GenericFakeApiException;
 import com.scaler.demo.fakeapi.exception.cart.CartApiException;
-import com.scaler.demo.fakeapi.service.CartService;
+import com.scaler.demo.fakeapi.service.ICartService;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,18 +18,18 @@ import java.util.List;
 public class CartController extends BaseController {
     private final Logger LOGGER = LoggerFactory.getLogger(CartController.class);
 
-    private final CartService cartService;
+    private final ICartService iCartService;
 
     @Autowired
-    public CartController(CartService cartService) {
-        this.cartService = cartService;
+    public CartController(ICartService iCartService) {
+        this.iCartService = iCartService;
     }
 
     @GetMapping
     public ResponseEntity<?> getAllCarts() {
         ResponseEntity<?> response;
         try {
-            List<CartDTO> carts = cartService.getAllCarts();
+            List<CartDTO> carts = iCartService.getAllCarts();
             response = ResponseEntity.status(HttpStatus.OK).body(carts);
         } catch (CartApiException e) {
             LOGGER.error("Error in CartController :: getAllCarts :: {}", e.getMessage(), e);
@@ -48,7 +47,7 @@ public class CartController extends BaseController {
     public ResponseEntity<?> getSingleCart(@PathVariable("cartId") String cartId) {
         ResponseEntity<?> response;
         try {
-            CartDTO cart = cartService.getSingleCart(cartId);
+            CartDTO cart = iCartService.getSingleCart(cartId);
             response = ResponseEntity.status(HttpStatus.OK).body(cart);
         } catch (CartApiException e) {
             LOGGER.error("Error in CartController :: getSingleCart :: {}", e.getMessage(), e);
@@ -66,7 +65,7 @@ public class CartController extends BaseController {
     public ResponseEntity<?> addToCart(@RequestBody CartDTO cartDTORequest) {
         ResponseEntity<?> response;
         try {
-            CartDTO cartDTOResponse = cartService.addToCart(cartDTORequest);
+            CartDTO cartDTOResponse = iCartService.addToCart(cartDTORequest);
             response = ResponseEntity.status(HttpStatus.OK).body(cartDTOResponse);
         } catch (CartApiException e) {
             LOGGER.error("Error in CartController :: addToCart :: {}", e.getMessage(), e);
@@ -84,7 +83,7 @@ public class CartController extends BaseController {
     public ResponseEntity<?> updateCart(@PathVariable("cartId") String cartId, @RequestBody CartDTO cartDTORequest) {
         ResponseEntity<?> response;
         try {
-            CartDTO cartDTOResponse = cartService.updateCart(cartId, cartDTORequest);
+            CartDTO cartDTOResponse = iCartService.updateCart(cartId, cartDTORequest);
             response = ResponseEntity.status(HttpStatus.OK).body(cartDTOResponse);
         } catch (CartApiException e) {
             LOGGER.error("Error in CartController :: updateCart :: {}", e.getMessage(), e);
@@ -102,7 +101,7 @@ public class CartController extends BaseController {
     public ResponseEntity<?> deleteCart(@PathVariable("cartId") String cartId) {
         ResponseEntity<?> response;
         try {
-            CartDTO cartDTO = cartService.deleteCart(cartId);
+            CartDTO cartDTO = iCartService.deleteCart(cartId);
             response = ResponseEntity.status(HttpStatus.OK).body(cartDTO);
         } catch (CartApiException e) {
             LOGGER.error("Error in CartController :: deleteCart :: {}", e.getMessage(), e);

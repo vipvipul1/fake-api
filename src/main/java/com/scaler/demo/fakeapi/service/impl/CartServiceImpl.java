@@ -3,7 +3,7 @@ package com.scaler.demo.fakeapi.service.impl;
 import com.scaler.demo.fakeapi.config.ApiConfig;
 import com.scaler.demo.fakeapi.dto.CartDTO;
 import com.scaler.demo.fakeapi.exception.cart.CartApiException;
-import com.scaler.demo.fakeapi.service.CartService;
+import com.scaler.demo.fakeapi.service.ICartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Service
-public class CartServiceImpl implements CartService {
+public class CartServiceImpl implements ICartService {
     private final Logger LOGGER = LoggerFactory.getLogger(CartServiceImpl.class);
 
     private final String CART_API_ENDPOINT;
